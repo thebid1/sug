@@ -1,0 +1,1211 @@
+<!--
+  ============================================================
+  PHOTOS NEEDED — drop real files into an "images" folder next
+  to this HTML file, using these exact filenames. Until a file
+  exists, that spot shows a dashed placeholder automatically —
+  nothing breaks if you launch before every photo is ready.
+
+  images/hero.jpg          — 1600x1200 or wider. Full-bleed hero
+                              background. Campus / crowd / stage shot.
+  images/about-1.jpg        — 700x900 portrait. Students on campus.
+  images/gallery-1.jpg      — 800x800 square. Past event / campus.
+  images/gallery-2.jpg      — 800x800 square.
+  images/gallery-3.jpg      — 800x800 square.
+  images/gallery-4.jpg      — 800x800 square.
+  images/sponsors-crowd.jpg — 1200x800. Wide crowd / auditorium shot.
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAUNCHPAD 2026 — Career &amp; Future Readiness Conference | UDUS</title>
+<meta name="description" content="LAUNCHPAD 2026: a one-day Career & Future Readiness Conference at Usmanu Danfodiyo University, Sokoto. Navigating Careers, Entrepreneurship and the Real World.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<style>
+  :root{
+    --ink:#0c1024;
+    --ink-2:#141a3a;
+    --ink-3:#1c234d;
+    --paper:#eeecf7;
+    --paper-dim:#c9c8dc;
+    --flare:#ff6a35;
+    --flare-dim:#c94f24;
+    --gold:#ffc145;
+    --go:#20b483;
+    --line:rgba(238,236,247,0.14);
+    --line-strong:rgba(238,236,247,0.28);
+    --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer;}
+  input, select, textarea{font-family:inherit;}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; letter-spacing:-0.01em;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px; height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+
+  /* ============ REVEAL ============ */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ============ PHOTO SLOTS ============ */
+  .photo-slot{
+    position:relative; overflow:hidden; background:var(--ink-3);
+    border:1px solid var(--line-strong);
+  }
+  .photo-slot img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .photo-slot .placeholder{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; text-align:center; padding:20px;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 14px, transparent 14px 28px),
+      linear-gradient(160deg, var(--ink-3), var(--ink-2));
+    border:1.5px dashed var(--line-strong);
+  }
+  .photo-slot .placeholder svg{width:30px; height:30px; opacity:0.5;}
+  .photo-slot .placeholder .fname{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.06em; color:var(--paper-dim); opacity:0.85;
+  }
+  .photo-slot .placeholder .fdim{
+    font-family:var(--mono); font-size:9.5px; color:var(--paper-dim); opacity:0.5;
+  }
+  .photo-slot.loaded .placeholder{display:none;}
+
+  /* ============ NAV ============ */
+  header.site{
+    position:fixed; top:0; left:0; right:0; z-index:500;
+    background:rgba(12,16,36,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+    max-width:1180px; margin:0 auto;
+  }
+  .brandmark{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--display); font-weight:700; font-size:18px;
+    letter-spacing:0.01em;
+  }
+  .brandmark .dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--flare);
+    box-shadow:0 0 0 4px rgba(255,106,53,0.18);
+  }
+  .brandmark small{
+    display:block; font-family:var(--mono); font-weight:400; font-size:10px;
+    letter-spacing:0.14em; color:var(--paper-dim); text-transform:uppercase; margin-top:2px;
+  }
+  nav.links{display:flex; align-items:center; gap:30px;}
+  nav.links a{
+    font-size:14px; color:var(--paper-dim); font-weight:500;
+    transition:color .2s ease;
+    white-space:nowrap;
+  }
+  nav.links a:hover{color:var(--paper);}
+  .nav-cta{
+    background:var(--flare);
+    color:#160a05;
+    font-weight:600; font-size:13.5px;
+    padding:10px 18px;
+    border-radius:3px;
+    border:1px solid var(--flare);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .nav-cta:hover{transform:translateY(-1px); box-shadow:0 8px 20px rgba(255,106,53,0.35);}
+
+  #navToggle{display:none;}
+  .burger{display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:600;}
+  .burger span{width:24px; height:2px; background:var(--paper);}
+
+  @media (max-width:880px){
+    nav.links{
+      position:fixed; top:0; right:-100%; height:100vh; width:78%;
+      background:var(--ink-2); flex-direction:column; justify-content:center;
+      align-items:flex-start; padding:40px; gap:26px; transition:right .35s ease;
+      border-left:1px solid var(--line);
+    }
+    nav.links a{font-size:18px;}
+    #navToggle:checked ~ nav.links{right:0;}
+    .burger{display:flex;}
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    padding:168px 0 90px;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero-photo{
+    position:absolute; inset:0; z-index:0; background:var(--ink);
+  }
+  .hero-photo img{
+    width:100%; height:100%; object-fit:cover; display:block; opacity:0.55;
+  }
+  .hero-photo .placeholder{ border:none; }
+  .hero-photo::after{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 82% -10%, rgba(255,106,53,0.28), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 5% 15%, rgba(32,180,131,0.16), transparent 55%),
+      linear-gradient(180deg, rgba(12,16,36,0.55) 0%, rgba(12,16,36,0.88) 65%, var(--ink) 100%);
+  }
+  .hero::after{
+    content:'';
+    position:absolute; inset:0; z-index:1;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.2;
+    mask-image:linear-gradient(180deg, transparent, black 30%, black 70%, transparent);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+  }
+  @media (max-width:960px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .hero-eyebrow-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:22px;}
+  .theme-tag{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink); background:var(--gold); padding:5px 10px; border-radius:2px; font-weight:600;
+  }
+
+  h1.hero-title{
+    font-size:clamp(40px, 6vw, 76px);
+    line-height:0.98;
+    color:var(--paper);
+  }
+  h1.hero-title em{
+    font-style:normal; color:var(--flare);
+  }
+  .hero-sub{
+    margin-top:22px; max-width:520px; font-size:17px; color:var(--paper-dim);
+  }
+  .hero-actions{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:15px 26px; border-radius:3px; font-weight:600; font-size:14.5px;
+    border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+  }
+  .btn-primary{
+    background:var(--flare); color:#180a04;
+    box-shadow:0 10px 30px rgba(255,106,53,0.25);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 34px rgba(255,106,53,0.4);}
+  .btn-ghost{
+    background:transparent; color:var(--paper); border:1px solid var(--line-strong);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.06); transform:translateY(-2px);}
+  .btn-go{ background:var(--go); color:#04140e; box-shadow:0 10px 30px rgba(32,180,131,0.25); }
+  .btn-go:hover{ box-shadow:0 14px 34px rgba(32,180,131,0.4); }
+
+  .hero-meta{display:flex; gap:26px; margin-top:36px; flex-wrap:wrap;}
+  .hero-meta div{font-family:var(--mono); font-size:12px; color:var(--paper-dim); text-transform:uppercase; letter-spacing:0.08em;}
+  .hero-meta div b{display:block; font-family:var(--body); font-size:15px; color:var(--paper); font-weight:600; text-transform:none; letter-spacing:0; margin-top:3px;}
+
+  /* --- Departure board --- */
+  .board{
+    background:var(--ink-2);
+    border:1px solid var(--line-strong);
+    border-radius:8px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .board-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 18px; background:var(--ink-3); border-bottom:1px solid var(--line);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--paper-dim);
+  }
+  .board-head .live{display:flex; align-items:center; gap:7px; color:var(--go);}
+  .board-head .live::before{content:''; width:7px; height:7px; border-radius:50%; background:var(--go); box-shadow:0 0 0 4px rgba(32,180,131,0.2); animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+  .board-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 18px; border-bottom:1px solid var(--line);
+    font-family:var(--mono);
+  }
+  .board-row:last-child{border-bottom:none;}
+  .board-row .label{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--paper-dim);}
+  .board-row .value{font-size:15px; color:var(--paper); font-weight:500; text-align:right;}
+  .board-row .value.flare{color:var(--flare);}
+
+  .countdown{
+    display:flex; gap:10px; padding:20px 18px; justify-content:space-between; background:var(--ink);
+  }
+  .countdown .unit{flex:1; text-align:center;}
+  .countdown .num{
+    font-family:var(--display); font-size:28px; font-weight:700; color:var(--gold);
+    background:var(--ink-3); border:1px solid var(--line); border-radius:4px; padding:10px 0;
+  }
+  .countdown .lbl{font-family:var(--mono); font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--paper-dim); margin-top:6px;}
+
+  /* ============ SECTION SHELL ============ */
+  section{padding:100px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px, 3.6vw, 42px); margin-top:14px; color:var(--paper);}
+  .section-head p{margin-top:16px; color:var(--paper-dim); font-size:16px;}
+
+  .band-dark{background:var(--ink);}
+  .band-mid{background:var(--ink-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+
+  /* ============ PROBLEM / STATS ============ */
+  .about-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:48px; align-items:stretch;}
+  @media (max-width:900px){ .about-grid{grid-template-columns:1fr;} }
+  .about-photo{
+    border-radius:10px; min-height:340px; box-shadow:var(--shadow);
+  }
+  .about-photo .placeholder{ border-radius:10px; }
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  @media (max-width:900px){ .stat-grid{grid-template-columns:repeat(2,1fr);} }
+  .stat-grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .stat-cell{background:var(--ink-2); padding:26px 22px;}
+  .stat-cell .n{font-family:var(--display); font-size:32px; font-weight:700; color:var(--flare);}
+  .stat-cell .t{font-size:13.5px; color:var(--paper-dim); margin-top:10px;}
+
+  /* ============ GALLERY ============ */
+  .gallery-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  @media (max-width:760px){ .gallery-grid{grid-template-columns:repeat(2,1fr);} }
+  .gallery-grid .photo-slot{
+    aspect-ratio:1/1; border-radius:8px;
+  }
+  .gallery-grid .photo-slot .placeholder{ border-radius:8px; }
+
+  /* ============ SPONSOR PHOTO BAND ============ */
+  .sponsor-photo-band{
+    margin-top:60px; border-radius:12px; overflow:hidden; position:relative; min-height:220px;
+  }
+  .sponsor-photo-band .placeholder{ border-radius:12px; }
+  .sponsor-photo-band .band-copy{
+    position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:center;
+    padding:36px; background:linear-gradient(90deg, rgba(12,16,36,0.88) 0%, rgba(12,16,36,0.4) 65%, transparent 100%);
+  }
+  .sponsor-photo-band .band-copy h4{font-size:22px; color:var(--paper); max-width:380px;}
+  .sponsor-photo-band .band-copy p{font-size:14px; color:var(--paper-dim); margin-top:10px; max-width:340px;}
+
+  /* ============ SCHEDULE / SPLIT-FLAP ============ */
+  .flap-table{border:1px solid var(--line-strong); border-radius:8px; overflow:hidden;}
+  .flap-row{
+    display:grid; grid-template-columns:130px 1fr 150px; gap:18px; align-items:center;
+    padding:20px 22px; border-bottom:1px solid var(--line);
+    background:var(--ink-2);
+    transition:background .2s ease;
+  }
+  .flap-row:hover{background:var(--ink-3);}
+  .flap-row:last-child{border-bottom:none;}
+  .flap-row .tcode{
+    font-family:var(--mono); font-size:13px; color:var(--gold); letter-spacing:0.06em;
+  }
+  .flap-row .seg h4{font-size:16.5px; color:var(--paper); font-weight:600;}
+  .flap-row .seg p{font-size:13.5px; color:var(--paper-dim); margin-top:4px;}
+  .flap-row .fmt{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--paper-dim); text-align:right; border:1px solid var(--line-strong); border-radius:3px; padding:6px 10px;
+  }
+  @media (max-width:720px){
+    .flap-row{grid-template-columns:1fr; gap:8px;}
+    .flap-row .fmt{text-align:left; width:fit-content;}
+  }
+
+  /* ============ MASTERCLASSES ============ */
+  .mc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:900px){ .mc-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .mc-grid{grid-template-columns:1fr;} }
+  .mc-card{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:8px; padding:26px;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .mc-card:hover{transform:translateY(-4px); border-color:var(--line-strong);}
+  .mc-card .tag{font-family:var(--mono); font-size:11px; color:var(--flare); letter-spacing:0.1em; text-transform:uppercase;}
+  .mc-card h4{font-size:17px; margin-top:12px; color:var(--paper);}
+  .mc-card p{font-size:13.8px; color:var(--paper-dim); margin-top:10px;}
+
+  /* ============ OUTCOMES ============ */
+  .outcome-list{display:grid; grid-template-columns:repeat(2,1fr); gap:16px 40px;}
+  @media (max-width:760px){ .outcome-list{grid-template-columns:1fr;} }
+  .outcome-item{display:flex; gap:14px; align-items:flex-start; padding:16px 0; border-bottom:1px solid var(--line);}
+  .outcome-item .mark{
+    flex:none; width:26px; height:26px; border-radius:50%; background:rgba(32,180,131,0.14);
+    border:1px solid var(--go); color:var(--go); display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; margin-top:2px;
+  }
+  .outcome-item p{font-size:14.8px; color:var(--paper-dim);}
+
+  /* ============ TICKET / REGISTRATION ============ */
+  .ticket-wrap{display:grid; grid-template-columns:1fr; justify-items:center;}
+  .ticket{
+    width:100%; max-width:720px;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:14px;
+    display:grid; grid-template-columns:1fr 220px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    position:relative;
+  }
+  @media (max-width:640px){ .ticket{grid-template-columns:1fr;} }
+
+  .ticket-main{padding:34px 30px;}
+  .ticket-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--flare-dim); font-weight:600;}
+  .ticket-main h3{font-family:var(--display); font-size:26px; margin-top:8px;}
+  .ticket-main .sub{font-size:13.5px; color:#4a486a; margin-top:6px;}
+
+  .ticket-fields{margin-top:24px; display:grid; gap:14px;}
+  .field label{
+    display:block; font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.1em; color:#5b5980; margin-bottom:6px;
+  }
+  .field input, .field select{
+    width:100%; padding:12px 13px; border-radius:5px; border:1.5px solid #cfcde3;
+    background:#fff; font-size:14.5px; color:var(--ink); outline:none;
+    transition:border-color .15s ease;
+  }
+  .field input:focus, .field select:focus{border-color:var(--flare);}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:480px){ .field-row{grid-template-columns:1fr;} }
+
+  .pay-btn{
+    margin-top:22px; width:100%; padding:16px; border-radius:6px; border:none;
+    background:var(--ink); color:var(--paper); font-weight:600; font-size:15px;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .pay-btn:hover{transform:translateY(-2px); background:#000;}
+  .pay-btn:disabled{opacity:0.5; cursor:not-allowed; transform:none;}
+  .pay-note{font-size:11.5px; color:#6c6a8f; margin-top:12px; text-align:center;}
+
+  .ticket-stub{
+    background:var(--ink);
+    color:var(--paper);
+    padding:30px 22px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    position:relative;
+  }
+  .stub-perf{
+    position:absolute; left:0; top:0; bottom:0; width:1px;
+    background-image:radial-gradient(circle, var(--ink) 4px, transparent 4.5px);
+    background-size:16px 16px;
+    background-repeat:repeat-y;
+  }
+  .stub-perf::before, .stub-perf::after{
+    content:''; position:absolute; left:-11px; width:22px; height:22px; border-radius:50%; background:var(--ink);
+  }
+  .stub-perf::before{top:-11px;}
+  .stub-perf::after{bottom:-11px;}
+  .ticket-stub .amt{font-family:var(--display); font-size:34px; font-weight:700; color:var(--gold);}
+  .ticket-stub .amt-lbl{font-family:var(--mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--paper-dim); margin-top:4px;}
+  .ticket-stub .barcode{
+    height:46px; margin-top:20px;
+    background:repeating-linear-gradient(90deg, var(--paper) 0 2px, transparent 2px 5px, var(--paper) 5px 6px, transparent 6px 10px);
+    opacity:0.85;
+  }
+  .ticket-stub .ref{font-family:var(--mono); font-size:10px; color:var(--paper-dim); margin-top:8px; letter-spacing:0.06em;}
+  .ticket-stub .seat{font-family:var(--mono); font-size:11px; color:var(--go); margin-top:16px;}
+
+  /* ============ SPONSORSHIP ============ */
+  .spons-intro{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+  @media (max-width:900px){ .spons-intro{grid-template-columns:1fr;} }
+  .why-list{display:grid; gap:14px;}
+  .why-item{
+    padding:16px 18px; background:var(--ink-2); border:1px solid var(--line); border-radius:7px;
+    font-size:14px; color:var(--paper-dim); display:flex; gap:12px;
+  }
+  .why-item b{color:var(--paper); font-weight:600;}
+  .why-item .idx{font-family:var(--mono); color:var(--flare); font-size:13px; flex:none;}
+
+  .tier-grid{margin-top:60px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media (max-width:900px){ .tier-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .tier-grid{grid-template-columns:1fr;} }
+  .tier-card{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:9px; padding:26px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .tier-card.full{
+    grid-column:span 3; background:linear-gradient(135deg, var(--ink-3), var(--ink-2));
+    border-color:var(--flare-dim); display:grid; grid-template-columns:1fr auto; align-items:center; gap:20px;
+  }
+  @media (max-width:900px){ .tier-card.full{grid-column:span 2;} }
+  @media (max-width:600px){ .tier-card.full{grid-column:span 1; grid-template-columns:1fr;} }
+  .tier-card .tname{font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);}
+  .tier-card .tamt{font-family:var(--display); font-size:26px; font-weight:700; color:var(--paper);}
+  .tier-card .tdesc{font-size:13.3px; color:var(--paper-dim);}
+  .tier-card .tbtn{
+    margin-top:auto; text-align:center; padding:11px; border-radius:5px; border:1px solid var(--line-strong);
+    font-size:13px; font-weight:600; color:var(--paper); transition:all .15s ease;
+  }
+  .tier-card .tbtn:hover{background:var(--flare); border-color:var(--flare); color:#180a04;}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--ink-2); border-top:1px solid var(--line); padding:60px 0 30px;}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;}
+  @media (max-width:760px){ .foot-grid{grid-template-columns:1fr; gap:32px;} }
+  .foot-grid h5{font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--paper-dim); margin-bottom:14px;}
+  .foot-grid p, .foot-grid a{font-size:14px; color:var(--paper-dim); display:block; margin-bottom:8px;}
+  .foot-grid a:hover{color:var(--paper);}
+  .foot-bottom{
+    margin-top:50px; padding-top:24px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:var(--mono); font-size:11.5px; color:var(--paper-dim); letter-spacing:0.03em;
+  }
+
+  /* ============ MODAL (sponsor form) ============ */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(4,6,16,0.72); backdrop-filter:blur(4px);
+    display:none; align-items:center; justify-content:center; z-index:900; padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:var(--paper); color:var(--ink); border-radius:12px; max-width:480px; width:100%;
+    padding:32px; max-height:88vh; overflow-y:auto; position:relative;
+  }
+  .modal-close{
+    position:absolute; top:18px; right:18px; width:30px; height:30px; border-radius:50%;
+    border:1px solid #cfcde3; background:#fff; display:flex; align-items:center; justify-content:center;
+    font-size:16px; color:#4a486a;
+  }
+  .modal h3{font-family:var(--display); font-size:22px;}
+  .modal .sub{font-size:13.5px; color:#5b5980; margin-top:6px;}
+  .modal form{margin-top:22px; display:grid; gap:14px;}
+  .modal .field label{color:#5b5980;}
+  .modal textarea{
+    width:100%; padding:12px 13px; border-radius:5px; border:1.5px solid #cfcde3; resize:vertical; min-height:80px;
+    font-size:14.5px; outline:none;
+  }
+  .modal textarea:focus{border-color:var(--flare);}
+  .modal .submit-btn{
+    margin-top:4px; padding:14px; border-radius:6px; border:none; background:var(--flare); color:#180a04;
+    font-weight:600; font-size:14.5px;
+  }
+  .toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--go); color:#04140e; padding:14px 22px; border-radius:6px; font-size:14px; font-weight:600;
+    opacity:0; pointer-events:none; transition:all .3s ease; z-index:999;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="site">
+  <div class="navbar">
+    <div class="brandmark">
+      <span class="dot"></span>
+      <div>LAUNCHPAD <span style="color:var(--flare)">2026</span>
+        <small>UDUS Students' Union</small>
+      </div>
+    </div>
+    <input type="checkbox" id="navToggle">
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#masterclasses">Masterclasses</a>
+      <a href="#sponsors">Sponsors</a>
+      <a href="#register" class="nav-cta">Reserve a seat</a>
+    </nav>
+    <label for="navToggle" class="burger"><span></span><span></span><span></span></label>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-photo photo-slot" data-fallback>
+    <img src="images/hero.jpg" alt="LAUNCHPAD 2026 attendees on the UDUS campus" onerror="this.style.display='none'; this.parentElement.classList.remove('loaded');" onload="this.parentElement.classList.add('loaded');">
+    <div class="placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
+      <span class="fname">images/hero.jpg</span>
+      <span class="fdim">1600×1200 · campus / crowd shot</span>
+    </div>
+  </div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow-row">
+        <span class="theme-tag">Career &amp; Future Readiness Conference</span>
+      </div>
+      <h1 class="hero-title">Your degree gets you<br>to the runway. <em>This gets<br>you airborne.</em></h1>
+      <p class="hero-sub">LAUNCHPAD 2026 is a one-day conference for UDUS students navigating careers, entrepreneurship, and the real world — recruiters, founders, bankers and development leaders, in one room, for one day, in Sokoto.</p>
+      <div class="hero-actions">
+        <a href="#register" class="btn btn-primary">Reserve your seat — ₦2,000</a>
+        <a href="#sponsors" class="btn btn-ghost">Become a sponsor</a>
+      </div>
+      <div class="hero-meta">
+        <div>Audience<b>Students across disciplines and levels</b></div>
+        <div>Open to<b>All levels · final-years encouraged</b></div>
+        <div>Format<b>Keynote · panels · masterclasses</b></div>
+      </div>
+    </div>
+
+    <div class="board reveal">
+      <div class="board-head">
+        <span>Flight Manifest — Departures</span>
+        <span class="live">Boarding open</span>
+      </div>
+      <div class="board-row">
+        <span class="label">Mission</span>
+        <span class="value flare">LAUNCHPAD 2026</span>
+      </div>
+      <div class="board-row">
+        <span class="label">Depart</span>
+        <span class="value">September 2026</span>
+      </div>
+      <div class="board-row">
+        <span class="label">Gate</span>
+        <span class="value">Usmanu Danfodiyo University, Sokoto</span>
+      </div>
+      <div class="board-row">
+        <span class="label">Destination</span>
+        <span class="value">The real world</span>
+      </div>
+      <div class="countdown" id="countdown">
+        <div class="unit"><div class="num" id="cd-days">--</div><div class="lbl">Days</div></div>
+        <div class="unit"><div class="num" id="cd-hours">--</div><div class="lbl">Hrs</div></div>
+        <div class="unit"><div class="num" id="cd-mins">--</div><div class="lbl">Min</div></div>
+        <div class="unit"><div class="num" id="cd-secs">--</div><div class="lbl">Sec</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT / PROBLEM ============ -->
+<section id="about" class="band-dark">
+  <div class="wrap">
+    <div class="about-grid reveal">
+      <div>
+        <div class="section-head" style="margin-bottom:34px;">
+          <span class="eyebrow">Why this exists</span>
+          <h2>Nobody hands you a flight plan for after graduation.</h2>
+          <p>Lecture halls teach the theory. They rarely cover how recruitment actually works, what employers screen for, or how to turn a business idea into a business. LAUNCHPAD closes that gap in one focused day.</p>
+        </div>
+        <div class="stat-grid-2">
+          <div class="stat-cell">
+            <div class="n">01</div>
+            <div class="t">Limited exposure to the world of work before students ever sit an interview.</div>
+          </div>
+          <div class="stat-cell">
+            <div class="n">02</div>
+            <div class="t">A widening gap between academic knowledge and the employability skills recruiters screen for.</div>
+          </div>
+          <div class="stat-cell">
+            <div class="n">03</div>
+            <div class="t">Little visibility into career paths beyond the obvious — development, consulting, finance, enterprise.</div>
+          </div>
+          <div class="stat-cell">
+            <div class="n">04</div>
+            <div class="t">Real uncertainty about what comes next, right when final-year students need clarity most.</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-photo photo-slot">
+        <img src="images/about-1.jpg" alt="UDUS students in conversation" onerror="this.style.display='none'; this.parentElement.classList.remove('loaded');" onload="this.parentElement.classList.add('loaded');">
+        <div class="placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
+          <span class="fname">images/about-1.jpg</span>
+          <span class="fdim">Students in conversation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCHEDULE ============ -->
+<section id="schedule" class="band-mid">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Flight schedule</span>
+      <h2>One day, fully boarded.</h2>
+      <p>A single programme moving from keynote to sector sessions to a closing networking reception — no parallel tracks to choose between.</p>
+    </div>
+    <div class="flap-table reveal">
+      <div class="flap-row">
+        <span class="tcode">OPENING</span>
+        <div class="seg"><h4>Beyond the Degree</h4><p>Building a meaningful future after university.</p></div>
+        <span class="fmt">Keynote</span>
+      </div>
+      <div class="flap-row">
+        <span class="tcode">SESSION 01</span>
+        <div class="seg"><h4>Corporate careers</h4><p>What employers look for, recruitment processes, and common interview mistakes.</p></div>
+        <span class="fmt">Talk + Q&amp;A</span>
+      </div>
+      <div class="flap-row">
+        <span class="tcode">SESSION 02</span>
+        <div class="seg"><h4>Banking &amp; finance</h4><p>Careers in financial services and personal financial management after graduation.</p></div>
+        <span class="fmt">Talk + panel</span>
+      </div>
+      <div class="flap-row">
+        <span class="tcode">SESSION 03</span>
+        <div class="seg"><h4>Entrepreneurship</h4><p>Spotting opportunities, starting a business, and accessing funding.</p></div>
+        <span class="fmt">Fireside chat</span>
+      </div>
+      <div class="flap-row">
+        <span class="tcode">SESSION 04</span>
+        <div class="seg"><h4>Scholarships &amp; internships</h4><p>Global academic and professional opportunities worth applying for.</p></div>
+        <span class="fmt">Talk + Q&amp;A</span>
+      </div>
+      <div class="flap-row">
+        <span class="tcode">SESSION 05</span>
+        <div class="seg"><h4>NGOs &amp; development work</h4><p>Careers in the non-profit and social impact sector.</p></div>
+        <span class="fmt">Talk + panel</span>
+      </div>
+      <div class="flap-row">
+        <span class="tcode">PANEL</span>
+        <div class="seg"><h4>What comes after graduation?</h4><p>Multiple pathways to a successful future — moderated discussion.</p></div>
+        <span class="fmt">Panel</span>
+      </div>
+      <div class="flap-row">
+        <span class="tcode">CLOSING</span>
+        <div class="seg"><h4>Networking &amp; certificates</h4><p>Sponsor recognition and a closing networking session.</p></div>
+        <span class="fmt">Networking</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MASTERCLASSES ============ -->
+<section id="masterclasses" class="band-dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Hands-on</span>
+      <h2>Practical masterclasses, not just talks.</h2>
+      <p>Small-group sessions where you leave with something finished — a CV, a rehearsed pitch, a plan — not just notes.</p>
+    </div>
+    <div class="mc-grid reveal">
+      <div class="mc-card">
+        <span class="tag">Clinic</span>
+        <h4>CV &amp; Cover Letter Clinic</h4>
+        <p>Structuring a professional CV, common mistakes, and tailoring applications to the role.</p>
+      </div>
+      <div class="mc-card">
+        <span class="tag">Rehearsal</span>
+        <h4>Interview Masterclass</h4>
+        <p>Preparing for interviews, answering hard questions, and communicating with confidence.</p>
+      </div>
+      <div class="mc-card">
+        <span class="tag">Positioning</span>
+        <h4>Personal Branding &amp; Visibility</h4>
+        <p>Building a professional reputation and an online presence recruiters actually notice.</p>
+      </div>
+      <div class="mc-card">
+        <span class="tag">Planning</span>
+        <h4>Career Planning Workshop</h4>
+        <p>Identifying your strengths, exploring career paths, and setting professional goals.</p>
+      </div>
+      <div class="mc-card">
+        <span class="tag">Venture</span>
+        <h4>Entrepreneurship</h4>
+        <p>Practical guidance on business models, market research, and funding for student founders.</p>
+      </div>
+      <div class="mc-card">
+        <span class="tag">Applications</span>
+        <h4>Scholarship &amp; Internship Applications</h4>
+        <p>Crafting personal statements and building a competitive academic profile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE SNAPSHOT ============ -->
+<section class="band-mid">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">A practical experience</span>
+      <h2>A focused day of preparation, guidance and momentum.</h2>
+      <p>From keynote insight to hands-on sessions, the programme is built to leave students with clarity, confidence and a clear next step.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTCOMES ============ -->
+<section class="band-dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">What you leave with</span>
+      <h2>Not a certificate. A plan.</h2>
+    </div>
+    <div class="outcome-list reveal">
+      <div class="outcome-item"><span class="mark">✓</span><p>A clearer view of career paths across corporate, finance, entrepreneurship, public service and development work.</p></div>
+      <div class="outcome-item"><span class="mark">✓</span><p>A working CV, cover letter, and rehearsed answers to the interview questions that actually get asked.</p></div>
+      <div class="outcome-item"><span class="mark">✓</span><p>A straight answer on what employers screen for — and how to show it on paper and in person.</p></div>
+      <div class="outcome-item"><span class="mark">✓</span><p>A shortlist of scholarships, internships, and graduate programmes worth applying to.</p></div>
+      <div class="outcome-item"><span class="mark">✓</span><p>Real contacts — recruiters, alumni, founders and practitioners you met, not just heard from.</p></div>
+      <div class="outcome-item"><span class="mark">✓</span><p>Confidence and a written next step for life after graduation — whatever direction you're headed.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGISTRATION / TICKET ============ -->
+<section id="register" class="band-dark">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin:0 auto 48px; text-align:center; max-width:560px;">
+      <span class="eyebrow" style="justify-content:center;">Boarding pass</span>
+      <h2>Reserve your seat.</h2>
+      <p>₦2,000 covers your full day — keynote, all sessions, masterclasses, materials and refreshments.</p>
+    </div>
+    <div class="ticket-wrap reveal">
+      <div class="ticket">
+        <div class="ticket-main">
+          <span class="ticket-eyebrow">LAUNCHPAD 2026 · Boarding Pass</span>
+          <h3>Passenger details</h3>
+          <p class="sub">Fill this in exactly as you'd like it on your certificate.</p>
+
+          <form id="ticketForm" class="ticket-fields">
+            <div class="field">
+              <label for="fullName">Full name</label>
+              <input type="text" id="fullName" required placeholder="e.g. Aisha Bello Muhammad">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" required placeholder="you@example.com">
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" required placeholder="080X XXX XXXX">
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="level">Level / Final year?</label>
+                <select id="level" required>
+                  <option value="">Select</option>
+                  <option>100 Level</option>
+                  <option>200 Level</option>
+                  <option>300 Level</option>
+                  <option>Final year</option>
+                  <option>Other / not UDUS</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="dept">Department (optional)</label>
+                <input type="text" id="dept" placeholder="e.g. Economics">
+              </div>
+            </div>
+
+            <button type="submit" class="pay-btn" id="payBtn">
+              Confirm &amp; pay ₦2,000 →
+            </button>
+            <p class="pay-note">Secured by Paystack. Your seat is confirmed by email immediately after payment.</p>
+          </form>
+        </div>
+
+        <div class="ticket-stub">
+          <div class="stub-perf"></div>
+          <div>
+            <div class="amt">₦2,000</div>
+            <div class="amt-lbl">Full-day admission</div>
+            <div class="seat" id="seatPreview">SEAT — PENDING</div>
+          </div>
+          <div>
+            <div class="barcode"></div>
+            <div class="ref" id="refPreview">REF — GENERATED ON PAYMENT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPONSORSHIP ============ -->
+<section id="sponsors" class="band-mid">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Partner with us</span>
+      <h2>Put your name behind a practical student experience.</h2>
+      <p>LAUNCHPAD is built and run by the UDUS Students' Union. Every partner listed below is real support behind a real programme — sponsor the whole day, or one part of it.</p>
+    </div>
+
+    <div class="spons-intro reveal">
+      <div>
+        <h3 style="font-size:19px; margin-bottom:18px;">Why organisations partner with LAUNCHPAD</h3>
+        <div class="why-list">
+          <div class="why-item"><span class="idx">→</span><div><b>Direct access to talent.</b> Meet students across disciplines and shortlist interns, trainees, or hires on the spot.</div></div>
+          <div class="why-item"><span class="idx">→</span><div><b>Brand visibility.</b> Your logo on banners, backdrops, participant materials, certificates and digital publicity.</div></div>
+          <div class="why-item"><span class="idx">→</span><div><b>Thought leadership.</b> Speak, moderate, or facilitate a session as a recognised voice in youth employability.</div></div>
+          <div class="why-item"><span class="idx">→</span><div><b>CSR with substance.</b> Demonstrable investment in education and human capital development, not a one-line mention.</div></div>
+          <div class="why-item"><span class="idx">→</span><div><b>A standing relationship.</b> A route to future internships, graduate recruitment and campus collaboration with UDUS.</div></div>
+        </div>
+      </div>
+      <div class="board">
+        <div class="board-head"><span>Support Needed</span><span>Manifest</span></div>
+        <div class="board-row"><span class="label">Venue &amp; logistics</span><span class="value">Hall, seating, sound, stage</span></div>
+        <div class="board-row"><span class="label">Feeding</span><span class="value">A full-day student audience</span></div>
+        <div class="board-row"><span class="label">Branding</span><span class="value">Banners, flyers, publicity</span></div>
+        <div class="board-row"><span class="label">Materials</span><span class="value">Certificates, print, kits</span></div>
+        <div class="board-row"><span class="label">Media</span><span class="value">Photo, video, press</span></div>
+      </div>
+    </div>
+
+    <div class="sponsor-photo-band photo-slot reveal">
+      <img src="images/sponsors-crowd.jpg" alt="Students filling the auditorium" onerror="this.style.display='none'; this.parentElement.classList.remove('loaded');" onload="this.parentElement.classList.add('loaded');">
+      <div class="placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
+        <span class="fname">images/sponsors-crowd.jpg</span>
+        <span class="fdim">1200×800 · wide crowd / auditorium shot</span>
+      </div>
+      <div class="band-copy">
+        <h4>This is the room your logo stands in front of.</h4>
+        <p>A full-day student audience, one stage, one shared experience. Every sponsor is seen by the people who matter most.</p>
+      </div>
+    </div>
+
+    <div class="tier-grid reveal">
+      <div class="tier-card">
+        <span class="tname">Ignition</span>
+        <span class="tamt">₦100,000</span>
+        <p class="tdesc">Venue &amp; setup — hall hire, seating, sound system, stage and screens for the day.</p>
+        <a class="tbtn" href="#" onclick="openSponsorModal('Venue & Setup — ₦100,000'); return false;">Sponsor this</a>
+      </div>
+      <div class="tier-card">
+        <span class="tname">Signal</span>
+        <span class="tamt">₦260,000</span>
+        <p class="tdesc">Branding, publicity &amp; media — banners, professional photo/video coverage, press.</p>
+        <a class="tbtn" href="#" onclick="openSponsorModal('Branding, Publicity & Media — ₦260,000'); return false;">Sponsor this</a>
+      </div>
+      <div class="tier-card">
+        <span class="tname">Payload</span>
+        <span class="tamt">₦750,000</span>
+        <p class="tdesc">Participant materials — writing pad, pen and folder for every attendee.</p>
+        <a class="tbtn" href="#" onclick="openSponsorModal('Participant Materials — ₦750,000'); return false;">Sponsor this</a>
+      </div>
+      <div class="tier-card">
+        <span class="tname">Fuel</span>
+        <span class="tamt">₦1,250,000</span>
+        <p class="tdesc">Refreshments — a proper meal for every attendee across the full-day programme.</p>
+        <a class="tbtn" href="#" onclick="openSponsorModal('Refreshments — ₦1,250,000'); return false;">Sponsor this</a>
+      </div>
+      <div class="tier-card">
+        <span class="tname">Ground Crew</span>
+        <span class="tamt">₦300,000</span>
+        <p class="tdesc">Security &amp; operations — personnel, crowd management and on-the-day coordination.</p>
+        <a class="tbtn" href="#" onclick="openSponsorModal('Security & Operations — ₦300,000'); return false;">Sponsor this</a>
+      </div>
+      <div class="tier-card">
+        <span class="tname">Reserve Tank</span>
+        <span class="tamt">₦200,000</span>
+        <p class="tdesc">Contingency — covers the unplanned, so the day runs exactly as scheduled.</p>
+        <a class="tbtn" href="#" onclick="openSponsorModal('Contingency — ₦200,000'); return false;">Sponsor this</a>
+      </div>
+      <div class="tier-card full">
+        <div>
+          <span class="tname">Mission Partner — Full Sponsorship</span>
+          <div class="tamt" style="margin-top:8px;">₦2,860,000</div>
+          <p class="tdesc" style="margin-top:8px;">Underwrite LAUNCHPAD 2026 in full, as lead partner across every category above — top billing on all branding, publicity and recognition.</p>
+        </div>
+        <a class="btn btn-primary" href="#" onclick="openSponsorModal('Full Mission Partner — ₦2,860,000'); return false;">Become the Mission Partner</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brandmark" style="margin-bottom:14px;"><span class="dot"></span>LAUNCHPAD 2026</div>
+        <p style="max-width:320px;">A one-day Career &amp; Future Readiness Conference by the Students' Union, Usmanu Danfodiyo University, Sokoto. Navigating Careers, Entrepreneurship and the Real World.</p>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <p>Comr. Tasiu Aminu — President/Chairman</p>
+        <a href="tel:+2349035598053">0903 559 8053</a>
+        <a href="mailto:tasiuaminu882@gmail.com">tasiuaminu882@gmail.com</a>
+        <a href="mailto:sugudus@udusok.edu.ng">sugudus@udusok.edu.ng</a>
+      </div>
+      <div>
+        <h5>On this page</h5>
+        <a href="#about">Why LAUNCHPAD</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#register">Reserve a seat</a>
+        <a href="#sponsors">Become a sponsor</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 STUDENTS' UNION, UDUS — ALL RIGHTS RESERVED</span>
+      <span>SOKOTO, NIGERIA</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ SPONSOR MODAL ============ -->
+<div class="modal-overlay" id="sponsorOverlay">
+  <div class="modal">
+    <div class="modal-close" onclick="closeSponsorModal()">✕</div>
+    <span class="ticket-eyebrow">Become a sponsor</span>
+    <h3 id="modalTitle" style="margin-top:8px;">Partner with LAUNCHPAD 2026</h3>
+    <p class="sub" id="modalSub">Tell us a little about your organisation. Comr. Tasiu Aminu will follow up directly.</p>
+    <form id="sponsorForm">
+      <div class="field">
+        <label for="orgName">Organisation / individual name</label>
+        <input type="text" id="orgName" required placeholder="e.g. Sokoto Microfinance Bank">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="contactName">Contact person</label>
+          <input type="text" id="contactName" required placeholder="Full name">
+        </div>
+        <div class="field">
+          <label for="sponsorPhone">Phone</label>
+          <input type="tel" id="sponsorPhone" required placeholder="080X XXX XXXX">
+        </div>
+      </div>
+      <div class="field">
+        <label for="sponsorEmail">Email</label>
+        <input type="email" id="sponsorEmail" required placeholder="you@organisation.com">
+      </div>
+      <div class="field">
+        <label for="sponsorTier">Sponsorship interest</label>
+        <select id="sponsorTier"></select>
+      </div>
+      <div class="field">
+        <label for="sponsorMsg">Message (optional)</label>
+        <textarea id="sponsorMsg" placeholder="Anything you'd like the Students' Union to know."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send sponsorship request</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ===================================================================
+     CONFIG — edit these before going live
+  =================================================================== */
+  const CONFIG = {
+    PAYSTACK_PUBLIC_KEY: "pk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // TODO: replace with your real Paystack public key
+    TICKET_PRICE_NGN: 2000,
+    EVENT_DATE_ISO: "2026-09-12T09:00:00+01:00", // TODO: confirm exact date — proposal only specifies "September 2026"
+    ORGANISER_EMAIL: "tasiuaminu882@gmail.com",
+    ORGANISER_WHATSAPP: "2349035598053"
+  };
+
+  /* ===================================================================
+     SCROLL REVEAL
+  =================================================================== */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ===================================================================
+     COUNTDOWN
+  =================================================================== */
+  function updateCountdown(){
+    const target = new Date(CONFIG.EVENT_DATE_ISO).getTime();
+    const now = Date.now();
+    const diff = target - now;
+    const els = {
+      d: document.getElementById('cd-days'),
+      h: document.getElementById('cd-hours'),
+      m: document.getElementById('cd-mins'),
+      s: document.getElementById('cd-secs')
+    };
+    if(diff <= 0){
+      els.d.textContent = els.h.textContent = els.m.textContent = els.s.textContent = '00';
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    els.d.textContent = String(days).padStart(2,'0');
+    els.h.textContent = String(hours).padStart(2,'0');
+    els.m.textContent = String(mins).padStart(2,'0');
+    els.s.textContent = String(secs).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ===================================================================
+     TOAST
+  =================================================================== */
+  function showToast(msg, ms = 3600){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => t.classList.remove('show'), ms);
+  }
+
+  /* ===================================================================
+     TICKET / PAYSTACK PAYMENT
+  =================================================================== */
+  function genRef(){
+    return 'LP26-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random()*9000+1000);
+  }
+
+  const ticketForm = document.getElementById('ticketForm');
+  const payBtn = document.getElementById('payBtn');
+
+  ticketForm.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const level = document.getElementById('level').value;
+    const dept = document.getElementById('dept').value.trim();
+
+    if(!fullName || !email || !phone || !level){
+      showToast('Please fill in all required fields.');
+      return;
+    }
+
+    if(CONFIG.PAYSTACK_PUBLIC_KEY.includes('XXXX')){
+      showToast('Add your live Paystack public key in the CONFIG block to accept real payments.', 5000);
+      return;
+    }
+
+    const ref = genRef();
+    document.getElementById('refPreview').textContent = 'REF — ' + ref;
+    document.getElementById('seatPreview').textContent = 'SEAT — RESERVING…';
+
+    payBtn.disabled = true;
+    payBtn.textContent = 'Opening secure payment…';
+
+    const handler = PaystackPop.setup({
+      key: CONFIG.PAYSTACK_PUBLIC_KEY,
+      email: email,
+      amount: CONFIG.TICKET_PRICE_NGN * 100, // kobo
+      currency: 'NGN',
+      ref: ref,
+      metadata: {
+        custom_fields: [
+          { display_name: "Full Name", variable_name: "full_name", value: fullName },
+          { display_name: "Phone", variable_name: "phone", value: phone },
+          { display_name: "Level", variable_name: "level", value: level },
+          { display_name: "Department", variable_name: "department", value: dept || "N/A" }
+        ]
+      },
+      callback: function(response){
+        document.getElementById('seatPreview').textContent = 'SEAT — CONFIRMED';
+        showToast('Payment successful! Reference ' + response.reference + '. A confirmation has been sent to ' + email + '.', 6000);
+        payBtn.disabled = false;
+        payBtn.textContent = 'Confirm & pay ₦2,000 →';
+        ticketForm.reset();
+      },
+      onClose: function(){
+        document.getElementById('seatPreview').textContent = 'SEAT — PENDING';
+        payBtn.disabled = false;
+        payBtn.textContent = 'Confirm & pay ₦2,000 →';
+        showToast('Payment window closed. No charge was made.');
+      }
+    });
+    handler.openIframe();
+  });
+
+  /* ===================================================================
+     SPONSOR MODAL + FORM
+  =================================================================== */
+  const sponsorOverlay = document.getElementById('sponsorOverlay');
+  const sponsorTierSelect = document.getElementById('sponsorTier');
+  const TIERS = [
+    "Ignition — Venue & Setup — ₦100,000",
+    "Signal — Branding, Publicity & Media — ₦260,000",
+    "Payload — Participant Materials — ₦750,000",
+    "Fuel — Refreshments — ₦1,250,000",
+    "Ground Crew — Security & Operations — ₦300,000",
+    "Reserve Tank — Contingency — ₦200,000",
+    "Full Mission Partner — ₦2,860,000",
+    "Not sure yet — let's talk"
+  ];
+  TIERS.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t; opt.textContent = t;
+    sponsorTierSelect.appendChild(opt);
+  });
+
+  function openSponsorModal(preselect){
+    if(preselect){
+      const match = Array.from(sponsorTierSelect.options).find(o => preselect.includes(o.value.split(' — ').slice(-1)[0]) || o.value.includes(preselect));
+      if(match) sponsorTierSelect.value = match.value;
+      document.getElementById('modalSub').textContent = 'You selected: ' + preselect + '. Confirm your details and we\'ll follow up directly.';
+    }
+    sponsorOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSponsorModal(){
+    sponsorOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  sponsorOverlay.addEventListener('click', (e) => { if(e.target === sponsorOverlay) closeSponsorModal(); });
+
+  document.getElementById('sponsorForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const orgName = document.getElementById('orgName').value.trim();
+    const contactName = document.getElementById('contactName').value.trim();
+    const sponsorPhone = document.getElementById('sponsorPhone').value.trim();
+    const sponsorEmail = document.getElementById('sponsorEmail').value.trim();
+    const tier = sponsorTierSelect.value;
+    const msg = document.getElementById('sponsorMsg').value.trim();
+
+    if(!orgName || !contactName || !sponsorPhone || !sponsorEmail){
+      showToast('Please fill in all required fields.');
+      return;
+    }
+
+    const subject = encodeURIComponent('LAUNCHPAD 2026 Sponsorship — ' + orgName);
+    const body = encodeURIComponent(
+      `Organisation: ${orgName}\nContact person: ${contactName}\nPhone: ${sponsorPhone}\nEmail: ${sponsorEmail}\nInterested in: ${tier}\n\nMessage:\n${msg || '(none)'}`
+    );
+    window.location.href = `mailto:${CONFIG.ORGANISER_EMAIL}?subject=${subject}&body=${body}`;
+
+    showToast('Opening your email client to send the request…', 4500);
+    closeSponsorModal();
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>
