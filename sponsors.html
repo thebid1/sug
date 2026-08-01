@@ -172,32 +172,32 @@
     <span class="ticket-eyebrow" style="color:var(--maroon);">Become a sponsor</span>
     <h3 style="margin-top:8px;">Partner with Career Launchpad 2026</h3>
     <p class="sub" id="modalSub">Tell us a little about your organisation. Comr. Tasiu Aminu will follow up directly.</p>
-    <form id="sponsorForm">
+    <form id="sponsorForm" action="https://formspree.io/f/mnjekjle" method="POST">
       <div class="field">
         <label for="orgName">Organisation / individual name</label>
-        <input type="text" id="orgName" required placeholder="e.g. Sokoto Microfinance Bank">
+        <input type="text" id="orgName" name="organisation" required placeholder="e.g. Sokoto Microfinance Bank">
       </div>
       <div class="field-row">
         <div class="field">
           <label for="contactName">Contact person</label>
-          <input type="text" id="contactName" required placeholder="Full name">
+          <input type="text" id="contactName" name="contact_person" required placeholder="Full name">
         </div>
         <div class="field">
           <label for="sponsorPhone">Phone</label>
-          <input type="tel" id="sponsorPhone" required placeholder="080X XXX XXXX">
+          <input type="tel" id="sponsorPhone" name="phone" required placeholder="080X XXX XXXX">
         </div>
       </div>
       <div class="field">
         <label for="sponsorEmail">Email</label>
-        <input type="email" id="sponsorEmail" required placeholder="you@organisation.com">
+        <input type="email" id="sponsorEmail" name="email" required placeholder="you@organisation.com">
       </div>
       <div class="field">
         <label for="sponsorTier">Sponsorship interest</label>
-        <select id="sponsorTier"></select>
+        <select id="sponsorTier" name="sponsorship_interest"></select>
       </div>
       <div class="field">
         <label for="sponsorMsg">Message (optional)</label>
-        <textarea id="sponsorMsg" placeholder="Anything you'd like the Students' Union to know."></textarea>
+        <textarea id="sponsorMsg" name="message" placeholder="Anything you'd like the Students' Union to know."></textarea>
       </div>
       <button type="submit" class="submit-btn">Send sponsorship request</button>
     </form>

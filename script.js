@@ -8,7 +8,7 @@ const CONFIG = {
   EVENT_DATE_ISO: "2026-09-12T09:00:00+01:00",
   ORGANISER_EMAIL: "tasiuaminu882@gmail.com",
   ORGANISER_WHATSAPP: "2349035598053",
-  GOOGLE_FORM_URL: "https://docs.google.com/forms/d/e/REPLACE_WITH_YOUR_FORM_ID/viewform"
+  GOOGLE_FORM_URL: "https://forms.gle/maYBADxgQ5cT174L6"
 };
 
 /* ===================================================================
@@ -228,15 +228,36 @@ if (sponsorForm) {
       return;
     }
 
-    const subject = encodeURIComponent('Career Launchpad 2026 Sponsorship — ' + orgName);
-    const body = encodeURIComponent(
-      `Organisation: ${orgName}\nContact person: ${contactName}\nPhone: ${sponsorPhone}\nEmail: ${sponsorEmail}\nInterested in: ${tier}\n\nMessage:\n${msg || '(none)'}`
-    );
-    window.location.href = `mailto:${CONFIG.ORGANISER_EMAIL}?subject=${subject}&body=${body}`;
+    // Submit to Formspree
+    const formData = new FormData(sponsorForm);
+    fetch(sponsorForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        // Send WhatsApp message to organiser
+        const whatsappMsg = encodeURIComponent(
+          `New Sponsorship Inquiry for Career Launchpad 2026\n\n` +
+          `Organisation: ${orgName}\n` +
+          `Contact: ${contactName}\n` +
+          `Phone: ${sponsorPhone}\n` +
+          `Email: ${sponsorEmail}\n` +
+          `Interest: ${tier}\n` +
+          `Message: ${msg || '(none)'}`
+        );
+        const whatsappUrl = `https://wa.me/${CONFIG.ORGANISER_WHATSAPP}?text=${whatsappMsg}`;
+        window.open(whatsappUrl, '_blank');
 
-    showToast('Opening your email client to send the request…', 4500);
-    closeSponsorModal();
-    e.target.reset();
+        showToast('Sponsorship request sent! Redirecting to WhatsApp…', 4500);
+        closeSponsorModal();
+        e.target.reset();
+      } else {
+        showToast('Something went wrong. Please try again.', 4500);
+      }
+    }).catch(error => {
+      showToast('Network error. Please check your connection.', 4500);
+    });
   });
 }
 
