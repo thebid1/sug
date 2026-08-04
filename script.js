@@ -5,7 +5,7 @@
    =================================================================== */
 
 const CONFIG = {
-  EVENT_DATE_ISO: "2026-09-12T09:00:00+01:00",
+  EVENT_DATE_ISO: "2026-09-07T09:00:00+01:00",
   ORGANISER_EMAIL: "tasiuaminu882@gmail.com",
   ORGANISER_WHATSAPP: "2349035598053",
   GOOGLE_FORM_URL: "https://forms.gle/maYBADxgQ5cT174L6"
