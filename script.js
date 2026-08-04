@@ -197,6 +197,7 @@ function openSponsorModal(preselect) {
   }
   sponsorOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  resetSponsorModal();
 }
 
 function closeSponsorModal() {
@@ -212,7 +213,21 @@ if (sponsorOverlay) {
 }
 
 const sponsorForm = document.getElementById('sponsorForm');
+const sponsorSuccess = document.getElementById('sponsorSuccess');
+const sponsorIntro = document.getElementById('sponsorIntro');
+
+/* Reset the modal back to the form view. */
+function resetSponsorModal() {
+  if (!sponsorForm || !sponsorSuccess) return;
+  sponsorForm.hidden = false;
+  sponsorSuccess.hidden = true;
+  if (sponsorIntro) sponsorIntro.hidden = false;
+}
+
 if (sponsorForm) {
+  const submitBtn = sponsorForm.querySelector('.submit-btn');
+  const submitLabel = submitBtn ? submitBtn.textContent : '';
+
   sponsorForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const orgName = document.getElementById('orgName').value.trim();
@@ -227,15 +242,25 @@ if (sponsorForm) {
       return;
     }
 
-    // Submit to Formspree
-    const formData = new FormData(sponsorForm);
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+    }
+
     fetch(sponsorForm.action, {
       method: 'POST',
-      body: formData,
+      body: new FormData(sponsorForm),
       headers: { 'Accept': 'application/json' }
     }).then(response => {
-      if (response.ok) {
-        // Send WhatsApp message to organiser
+      if (!response.ok) throw new Error('Formspree returned ' + response.status);
+
+      /* The Formspree POST is the record of the enquiry. WhatsApp is an
+         optional fast-track, offered as a link the sponsor taps themselves —
+         calling window.open() here would depend on the browser's transient
+         user activation still being alive, which it is not on a slow
+         connection. */
+      const whatsappLink = document.getElementById('sponsorWhatsapp');
+      if (whatsappLink) {
         const whatsappMsg = encodeURIComponent(
           `New Sponsorship Inquiry for Career Launchpad 2026\n\n` +
           `Organisation: ${orgName}\n` +
@@ -245,17 +270,25 @@ if (sponsorForm) {
           `Interest: ${tier}\n` +
           `Message: ${msg || '(none)'}`
         );
-        const whatsappUrl = `https://wa.me/${CONFIG.ORGANISER_WHATSAPP}?text=${whatsappMsg}`;
-        window.open(whatsappUrl, '_blank');
-
-        showToast('Sponsorship request sent! Redirecting to WhatsApp…', 4500);
-        closeSponsorModal();
-        e.target.reset();
-      } else {
-        showToast('Something went wrong. Please try again.', 4500);
+        whatsappLink.href = `https://wa.me/${CONFIG.ORGANISER_WHATSAPP}?text=${whatsappMsg}`;
       }
-    }).catch(error => {
-      showToast('Network error. Please check your connection.', 4500);
+
+      if (sponsorSuccess) {
+        sponsorForm.hidden = true;
+        sponsorSuccess.hidden = false;
+        if (sponsorIntro) sponsorIntro.hidden = true;
+      } else {
+        showToast('Sponsorship request sent. We will be in touch.', 4500);
+        closeSponsorModal();
+      }
+      sponsorForm.reset();
+    }).catch(() => {
+      showToast('Could not send your request. Please check your connection and try again.', 4500);
+    }).finally(() => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitLabel;
+      }
     });
   });
 }

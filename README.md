@@ -42,8 +42,8 @@ and set the publish directory to the repository root.
 ### Before going live
 
 1. **Confirm the domain.** `sitemap.xml`, `robots.txt`, and the `og:`/`canonical`
-   tags in `register.html` all assume `https://careerlaunchpad2026.com`. If the
-   real domain differs, update those three places.
+   tags in `register.html` all point at `https://careerlaunchpad26.vercel.app`.
+   If the site later moves to a custom domain, update those three places.
 2. **Enable HTTPS** — required for the fonts and the Formspree POST.
 3. **Verify the sponsor form.** `sponsors.html` posts to Formspree endpoint
    `mnjekjle`. Confirm that endpoint is live and the notification address is

@@ -47,6 +47,9 @@
 }
 
 *{box-sizing:border-box; margin:0; padding:0;}
+/* Author display rules (e.g. .modal form{display:grid}) otherwise beat the UA
+   [hidden] rule, so the attribute must win explicitly. */
+[hidden]{display:none !important;}
 html{scroll-behavior:smooth;}
 body{
   background:var(--bg);
@@ -224,6 +227,7 @@ h1,h2,h3,h4{
   overflow:hidden;
   box-shadow:var(--shadow-lg);
 }
+.img-frame picture, .photo-slot picture{display:block; width:100%; height:100%;}
 .img-frame img{width:100%; height:100%; object-fit:cover; display:block;}
 
 /* ==========================================================================
@@ -910,6 +914,23 @@ footer{
   transition:background .2s ease;
 }
 .modal .submit-btn:hover{background:var(--maroon-light);}
+.modal .submit-btn:disabled{background:var(--ink-muted); cursor:not-allowed;}
+
+/* Post-submit confirmation state */
+.modal-success{text-align:center; padding:8px 0 4px;}
+.modal-success .success-mark{
+  width:56px; height:56px; border-radius:50%; margin:0 auto 18px;
+  background:var(--olive-light); border:1.5px solid var(--olive); color:var(--olive);
+  display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:700;
+}
+.modal-success .sub{margin:6px 0 24px;}
+.modal-success .btn{width:100%;}
+.modal-success .success-dismiss{
+  margin-top:14px; background:none; border:none;
+  font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--ink-faint); text-decoration:underline; text-underline-offset:3px;
+}
+.modal-success .success-dismiss:hover{color:var(--ink);}
 
 /* ==========================================================================
    FORM FIELDS

@@ -171,9 +171,11 @@
 <div class="modal-overlay" id="sponsorOverlay">
   <div class="modal">
     <div class="modal-close" onclick="closeSponsorModal()">✕</div>
-    <span class="ticket-eyebrow" style="color:var(--maroon);">Become a sponsor</span>
-    <h3 style="margin-top:8px;">Partner with Career Launchpad 2026</h3>
-    <p class="sub" id="modalSub">Tell us a little about your organisation. Comr. Tasiu Aminu will follow up directly.</p>
+    <div id="sponsorIntro">
+      <span class="ticket-eyebrow" style="color:var(--maroon);">Become a sponsor</span>
+      <h3 style="margin-top:8px;">Partner with Career Launchpad 2026</h3>
+      <p class="sub" id="modalSub">Tell us a little about your organisation. Comr. Tasiu Aminu will follow up directly.</p>
+    </div>
     <form id="sponsorForm" action="https://formspree.io/f/mnjekjle" method="POST">
       <div class="field">
         <label for="orgName">Organisation / individual name</label>
@@ -203,6 +205,16 @@
       </div>
       <button type="submit" class="submit-btn">Send sponsorship request</button>
     </form>
+
+    <!-- Shown after a successful Formspree POST. The WhatsApp hand-off is a real
+         link so the tap is a genuine user gesture and is never popup-blocked. -->
+    <div class="modal-success" id="sponsorSuccess" hidden>
+      <span class="success-mark">✓</span>
+      <h3>Request received.</h3>
+      <p class="sub">Your details are with the Students' Union. Comr. Tasiu Aminu will follow up directly.</p>
+      <a class="btn btn-olive" id="sponsorWhatsapp" href="#" target="_blank" rel="noopener">Also send on WhatsApp →</a>
+      <button type="button" class="success-dismiss" onclick="closeSponsorModal()">Done</button>
+    </div>
   </div>
 </div>
 
