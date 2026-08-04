@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,7 +18,7 @@
 <header class="site">
   <div class="navbar">
     <a href="index.html" class="brandmark">
-      <span class="mark"><img src="images/logo.jpg" alt="UDUS Students' Union crest"></span>
+      <span class="mark"><img src="images/logo.jpg" alt="UDUS Students' Union crest" width="40" height="40" decoding="async"></span>
       <div>Career Launchpad <span style="color:var(--maroon)">2026</span><small>UDUS Students' Union</small></div>
     </a>
     <input type="checkbox" id="navToggle">
@@ -38,7 +40,7 @@
       <h1 class="hero-title">Your degree gets you to the runway.<br><em>This gets you airborne.</em></h1>
       <p class="hero-sub">A one-day conference for UDUS students navigating careers, entrepreneurship and the real world — recruiters, founders, bankers and development leaders, in one room, for one day, in Sokoto.</p>
       <div class="hero-actions">
-        <a href="register.html" class="btn btn-primary">Register now — ₦2,000</a>
+        <a href="register.html" class="btn btn-primary">Reserve your seat</a>
         <a href="schedule.html" class="btn btn-ghost">View the schedule</a>
       </div>
     </div>
@@ -47,7 +49,7 @@
       <div class="img-frame">
         <picture>
           <source media="(max-width: 768px)" srcset="images/hero-mobile.jpg">
-          <img src="images/hero.jpg" alt="Career Launchpad attendees on the UDUS campus" onerror="this.style.display='none'; this.parentElement.classList.remove('loaded');" onload="this.parentElement.classList.add('loaded');">
+          <img src="images/hero.jpg" alt="Career Launchpad attendees on the UDUS campus" width="1254" height="1254" fetchpriority="high" decoding="async" onerror="this.style.display='none'; this.parentElement.classList.remove('loaded');" onload="this.parentElement.classList.add('loaded');">
         </picture>
       </div>
       <div class="hero-badge">
@@ -170,7 +172,7 @@
     <div class="foot-grid">
       <div>
         <a href="index.html" class="brandmark" style="margin-bottom:16px; display:flex;">
-          <span class="mark"><img src="images/logo.jpg" alt="UDUS Students' Union crest"></span>
+          <span class="mark"><img src="images/logo.jpg" alt="UDUS Students' Union crest" width="40" height="40" loading="lazy" decoding="async"></span>
           Career Launchpad 2026
         </a>
         <p style="max-width:320px;">A one-day Career &amp; Future Readiness Conference by the Students' Union, Usmanu Danfodiyo University, Sokoto.</p>

@@ -45,15 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header.site');
   if (!header) return;
-  let lastScroll = 0;
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-    lastScroll = currentScroll;
+    header.classList.toggle('scrolled', window.scrollY > 50);
   }, { passive: true });
 });
 
@@ -135,6 +128,7 @@ function updateCountdown() {
 
   if (diff <= 0) {
     els.d.textContent = els.h.textContent = els.m.textContent = els.s.textContent = '00';
+    if (countdownTimer) clearInterval(countdownTimer);
     return;
   }
   const days = Math.floor(diff / 86400000);
@@ -146,8 +140,13 @@ function updateCountdown() {
   els.m.textContent = String(mins).padStart(2, '0');
   els.s.textContent = String(secs).padStart(2, '0');
 }
-updateCountdown();
-setInterval(updateCountdown, 1000);
+
+/* Only tick on pages that actually show a countdown. */
+let countdownTimer = null;
+if (document.getElementById('cd-days')) {
+  updateCountdown();
+  countdownTimer = setInterval(updateCountdown, 1000);
+}
 
 /* ===================================================================
    TOAST

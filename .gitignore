@@ -1,0 +1,21 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Local tooling / agent config
+.claude/
+*.tmp
+*.tmp.*
+*.bak
+*.orig
+
+# Logs
+*.log
+
+# Local env
+.env
+.env.local
